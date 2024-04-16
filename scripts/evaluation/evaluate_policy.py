@@ -28,6 +28,7 @@ if __name__ == "__main__":
             image_transform_kwargs=dict(),
         ),
         ckpt_path=args.ckpt_path,
+        control_hz=3 # Note(Ashwin): this is usually 15
     )
 
     if args.capture_goal:

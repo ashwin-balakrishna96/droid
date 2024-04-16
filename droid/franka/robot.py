@@ -16,6 +16,9 @@ from droid.robot_ik.robot_ik_solver import RobotIKSolver
 
 
 class FrankaRobot:
+    def __init__(self, control_hz=15):
+        self.control_hz = control_hz
+
     def launch_controller(self):
         try:
             self.kill_controller()
@@ -36,7 +39,7 @@ class FrankaRobot:
         self._robot = RobotInterface(ip_address="localhost")
         self._gripper = GripperInterface(ip_address="localhost")
         self._max_gripper_width = self._gripper.metadata.max_width
-        self._ik_solver = RobotIKSolver()
+        self._ik_solver = RobotIKSolver(self.control_hz)
 
     def kill_controller(self):
         self._robot_process.kill()

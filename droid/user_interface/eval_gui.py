@@ -57,7 +57,7 @@ class GoalCondPolicy(ABC):
 
 class EvalGUI(ctk.CTk):
     # add env args param to init that gets passed to robot env but optional
-    def __init__(self, policy, env=None, eval_dir=None, fullscreen=False):
+    def __init__(self, policy, env=None, eval_dir=None, fullscreen=False, control_hz=15):
         super().__init__()
 
         if not eval_dir:
@@ -68,7 +68,7 @@ class EvalGUI(ctk.CTk):
             os.makedirs(self.eval_traj_dir)
 
         if not env:
-            env = RobotEnv()
+            env = RobotEnv(control_hz=control_hz)
 
         controller = VRPolicy()
         robot = DataCollecter(

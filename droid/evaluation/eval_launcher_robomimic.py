@@ -138,6 +138,7 @@ def eval_launcher(variant, run_id, exp_id):
     env = RobotEnv(
         action_space=policy_timestep_filtering_kwargs["action_space"],
         gripper_action_space=policy_timestep_filtering_kwargs["gripper_action_space"],
+        control_hz=variant["control_hz"],
         camera_kwargs=policy_camera_kwargs
     )
     controller = VRPolicy()

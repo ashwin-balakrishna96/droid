@@ -13,7 +13,7 @@ from droid.misc.transformations import change_pose_frame
 
 
 class RobotEnv(gym.Env):
-    def __init__(self, action_space="cartesian_velocity", gripper_action_space=None, camera_kwargs={}, do_reset=True):
+    def __init__(self, action_space="cartesian_velocity", gripper_action_space=None, control_hz=15, camera_kwargs={}, do_reset=True):
         # Initialize Gym Environment
         super().__init__()
 
@@ -28,12 +28,12 @@ class RobotEnv(gym.Env):
         self.randomize_low = np.array([-0.1, -0.2, -0.1, -0.3, -0.3, -0.3])
         self.randomize_high = np.array([0.1, 0.2, 0.1, 0.3, 0.3, 0.3])
         self.DoF = 7 if ("cartesian" in action_space) else 8
-        self.control_hz = 15
+        self.control_hz = control_hz
 
         if nuc_ip is None:
             from franka.robot import FrankaRobot
 
-            self._robot = FrankaRobot()
+            self._robot = FrankaRobot(control_hz=control_hz)
         else:
             self._robot = ServerInterface(ip_address=nuc_ip)
 
